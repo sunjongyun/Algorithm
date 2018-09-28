@@ -1,30 +1,38 @@
 #include <iostream>
+#include <functional>
+#include <list>
 
 using namespace std;
 
-int get_gcd (int u, int v){
-
-    if (u<v){ // u가 v보다 크다면
-        int tmp=u;
-        u=v;
-        v=tmp;
-    }
-
-    if (v==0){
-        return u;
-    }
-
-    int answer =get_gcd(u-v,v);
-
-
-    return answer;
-}
 
 int main() {
 
-    int answer= get_gcd(280, 30); // ans is 10 what I look forward;
+    function<void(list<int> &)> print = [](list<int> &param_l) {
+        for (int x : param_l) {
+            cout << x << ' ';
+        }
+        cout << '\n';
+    };
 
-    cout << answer << endl;
+    list<int> l = {2, 1, -5, 4, -3, 6, -7};
+    print(l); //2 1 -5 4 -3 6 -7
+
+    l.sort();
+    print(l); // -7 -5 -3 1 2 4 6
+
+    l.sort(greater<int>());
+    print(l); // 6 4 2 1 -3 -5 -7
+
+    l.sort([](int &u, int &v) {
+        return abs(u) < abs(v);
+    });
+    print(l); //1 2 -3 4 -5 6 -7
+
+    l.reverse();
+    print(l); //-7 6 -5 4 -3 2 1
 
     return 0;
 }
+
+
+
