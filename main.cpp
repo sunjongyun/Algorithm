@@ -1,35 +1,29 @@
 #include <iostream>
 #include <functional>
+#include <set>
+#include <map>
+#include <stack>
 #include <list>
+#include <queue>
 
 using namespace std;
 
-
 int main() {
+    string input1;
+    string input2;
 
-    function<void(list<int> &)> print = [](list<int> &param_l) {
-        for (int x : param_l) {
-            cout << x << ' ';
-        }
-        cout << '\n';
-    };
+    cin >> input1;
+    cin >> input2;
 
-    list<int> l = {2, 1, -5, 4, -3, 6, -7};
-    print(l); //2 1 -5 4 -3 6 -7
+    bitset<100000> a(input1);
+    bitset<100000> b(input2);
 
-    l.sort();
-    print(l); // -7 -5 -3 1 2 4 6
 
-    l.sort(greater<int>());
-    print(l); // 6 4 2 1 -3 -5 -7
-
-    l.sort([](int &u, int &v) {
-        return abs(u) < abs(v);
-    });
-    print(l); //1 2 -3 4 -5 6 -7
-
-    l.reverse();
-    print(l); //-7 6 -5 4 -3 2 1
+    cout << (a & b) << '\n';
+    cout << (a | b) << '\n';
+    cout << (a ^ b) << '\n';
+    cout << (~a) << '\n';
+    cout << (~b) << '\n';
 
     return 0;
 }

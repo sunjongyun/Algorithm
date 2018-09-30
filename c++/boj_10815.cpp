@@ -19,7 +19,7 @@ int main() {
     }
 
     int m;
-    cin >> m;
+    scanf("%d", &m);
     while (m--) {
         int x;
         scanf("%d", &x);

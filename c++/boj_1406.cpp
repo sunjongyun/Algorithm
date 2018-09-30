@@ -8,14 +8,14 @@
 using namespace std;
 
 int main() {
-    list<char> l;
 
     string str;
     cin >> str;
 
-    for (int i = 0; i < str.length(); ++i) {
+    list<char> l(str.begin(),str.end());
+    /*for (int i = 0; i < str.length(); ++i) {
         l.push_back(str[i]);
-    }
+    }*/
 
     int n;
     cin >> n;
