@@ -5,28 +5,34 @@
 #include <stack>
 #include <list>
 #include <queue>
+#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
+
 int main() {
-    string input1;
-    string input2;
 
-    cin >> input1;
-    cin >> input2;
+    vector<int> a = {3, 1, 2};
+    sort(a.begin(), a.end());
 
-    bitset<100000> a(input1);
-    bitset<100000> b(input2);
+    do {
+        for (int x: a) {
+            cout << x << ' ';
+        }
+        cout << '\n';
+    } while (next_permutation(a.begin(), a.end()));
 
+    /* 1 2 3
+     * 1 3 2
+     * 2 1 3
+     * 2 3 1
+     * 3 1 2
+     * 3 2 1  */
 
-    cout << (a & b) << '\n';
-    cout << (a | b) << '\n';
-    cout << (a ^ b) << '\n';
-    cout << (~a) << '\n';
-    cout << (~b) << '\n';
 
     return 0;
 }
-
 
 
