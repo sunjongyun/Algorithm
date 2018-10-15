@@ -1,21 +1,24 @@
 //
-// Created by SUN on 2018-10-04.
+// Created by mac on 2018. 10. 4..
 //
 
 #include <iostream>
-#include <queue>
 #include <algorithm>
+#include <vector>
+#include <queue>
 #include <string>
 #include <cstring>
 
 using namespace std;
 
 bool prime[10000];
+bool c[10001];
+int d[10001];
 
-void doPrime() {
+void do_prime() {
     for (int i = 2; i < 10000; i++) {
         if (prime[i] == false) {
-            for (int j = i * 2; j < 10000; j = j + i) {
+            for (int j = i * 2; j < 10000; j += i) {
                 prime[j] = true;
             }
         }
@@ -26,70 +29,55 @@ void doPrime() {
     }
 }
 
-int change(int now, int index, int digit) {
-    if (index == 0 && digit == 0) {
-        return -1;
-    }
+int change(int num, int index, int digit) {
+    if (index == 0 && digit == 0) return -1;
 
-    string s = to_string(now);
+    string s = to_string(num);
     s[index] = digit + '0';
     return stoi(s);
 }
 
+
 int main() {
+
+    do_prime(); // 에라토스테네스의 체를 사용하여 소수를 구한다.
+
+
     int testcase;
     cin >> testcase;
-
-    doPrime();
-
     while (testcase--) {
         int start;
         int end;
-        bool check[10000];
-        int d[10000];
-
         cin >> start >> end;
 
-        memset(check, false, sizeof(check));
+        memset(c, false, sizeof(c));
         memset(d, 0, sizeof(d));
-        /*int a = 0;
-        for (int i = 0; i < 10000; i++) {
-            if (check[i]) {
-                a++;
-            }
-
-        }
-        cout << "a: " << a << endl;*/
 
         queue<int> q;
         q.push(start);
+        c[start] = true;
         d[start] = 0;
-        check[start] = true;
 
         while (!q.empty()) {
             int now = q.front();
             q.pop();
 
+            //한자리씩 바꿈
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 10; j++) {
                     int next = change(now, i, j);
-
                     if (next != -1) {
-                        if (prime[next] && check[next] == false) {
-                            /*if (next == 1033) {
-                                cout << now << ' ' << i << ' ' << j << '\n';
-                            }*/
+                        if (prime[next] && c[next] == false) {
                             q.push(next);
+                            c[next] = true;
                             d[next] = d[now] + 1;
-                            check[next] = true;
                         }
                     }
                 }
             }
-
         }
 
-        cout << d[end] << endl;
+        cout << d[end] << '\n';
 
     }
 
