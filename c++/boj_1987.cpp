@@ -1,53 +1,53 @@
 //
-// Created by mac on 2018. 10. 8..
+// Created by SUN on 2018-10-07.
 //
+
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
-int dx[] = {0, 0, 1, -1};
-int dy[] = {1, -1, 0, 0};
-int n;
-int m;
+int R=0;
+int C=0;
 
-int go(vector<string> &board, vector<bool> &check, int nowX, int nowY) {
-    int ans = 0;
+int max=0; //지나온 길의 최대값
 
-    for (int k = 0; k < 4; k++) {
-        int nextX = nowX + dx[k];
-        int nextY = nowY + dy[k];
+vector<bool> street; // 지나온 길
+//bool street['Z'-'A'+1];
+vector<int,vector<bool>> checked;
 
-        if (0 <= nextX && nextX < n && 0 <= nextY && nextY < m) {
-            if (check[board[nextX][nextY] - 'A'] == false) {
-                check[board[nextX][nextY] - 'A'] = true;
-                int next = go(board, check, nextX, nextY);
-                if (ans < next) {
-                    ans = next;
-                }
-                check[board[nextX][nextY] - 'A'] = false;
-            }
-        }
+void dfs(int r, int c){
+
+    for (int k=0; k<4; k++){
 
     }
-
-    return ans + 1;
 }
 
-int main() {
+int main()
+{
+    cin >> R >> C;
 
-    cin >> n >> m;
+    char map[R][C];
 
-    vector<string> board(n);
-    for (int i = 0; i < n; i++) {
-        cin >> board[i];
+    for (int i=0; i<R; i++){
+        for (int j=0; j<C; j++){
+            cin >> map[i][j];
+        }
     }
 
-    vector<bool> check(26);
-    check[board[0][0] - 'A'] = true;
-    int ans = go(board, check, 0, 0);
+    //street 초기화
+    for (int i='A'; i<='Z'; i++){
+        street[i]=0;
+    }
 
-    cout << ans << '\n';
+    //checked초기화
+    for (int i=0; i<R; i++){
+        for (int j=0; j<C; j++){
+            checked[i][j]=false;
+        }
+    }
+    street[map[0][0]]=1;
+    dfs(0,0);
+
 
     return 0;
 }
