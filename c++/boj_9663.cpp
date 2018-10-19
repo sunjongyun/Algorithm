@@ -42,18 +42,19 @@ bool check(int row, int col) {
 
 int cal(int row) {
 
-    if (row == n) {
+    if (row==n){
         return 1;
     }
 
-    int ans = 0;
+    int ans=0;
     for (int i = 0; i < n; i++) {
         map[row][i] = true;
         if (check(row, i)) {
-            ans += cal(row + 1);
+            ans+=cal(row + 1);
         }
         map[row][i] = false;
     }
+
 
     return ans;
 }
@@ -61,10 +62,10 @@ int cal(int row) {
 int main() {
     cin >> n;
 
-    int ans = 0;
-    ans = cal(0);
+    int ans=0;
+    ans=cal(0);
 
 
-    cout << ans << '\n';
+    cout<< ans << '\n';
     return 0;
 }
