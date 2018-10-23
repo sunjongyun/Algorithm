@@ -1,32 +1,51 @@
 #include <iostream>
-#include <functional>
-#include <set>
-#include <map>
-#include <stack>
-#include <list>
-#include <queue>
+#include <vector>
 
 using namespace std;
 
 int main() {
-    string input1;
-    string input2;
+    int n;
+    int seek;
 
-    cin >> input1;
-    cin >> input2;
+    vector<int> a;
 
-    bitset<100000> a(input1);
-    bitset<100000> b(input2);
+    cin >> n >> seek;
 
+    for (int i = 0; i < n; ++i) {
+        int tmp;
+        cin >> tmp;
+        a.push_back(tmp);
+    }
 
-    cout << (a & b) << '\n';
-    cout << (a | b) << '\n';
-    cout << (a ^ b) << '\n';
-    cout << (~a) << '\n';
-    cout << (~b) << '\n';
+    int right = 0;
+    int left = 0;
+    int sum = a[0];
+    int ans = 987654321;
+    while (right != n && left != n) {
+        int size = 0;
+        if (sum == seek) {
+            size = right - left + 1;
+            if (ans > size) ans = size;
+            right++;
+            if (right == n) break;
+            sum += a[right];
+        } else if (sum > seek) {
+            size = right - left + 1;
+            if (ans > size)ans = size;
+            sum -= a[left];
+            left++;
+        } else if (sum < seek) {
+            right++;
+            if (right == n) break;
+            sum += a[right];
+        }
+    }
+
+    if (ans == 987654321) {
+        cout << 0 << '\n';
+    } else {
+        cout << ans << '\n';
+    }
 
     return 0;
 }
-
-
-
