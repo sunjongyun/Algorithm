@@ -1,5 +1,5 @@
 //
-// Created by mac on 2018. 10. 23..
+// Created by SUN on 2018-10-19.
 //
 
 #include <iostream>
@@ -7,34 +7,47 @@
 
 using namespace std;
 
-long long d[5001];
-int mod = 1000000;
+const int c1 = 0; // If the current text is a single digit
+const int c2 = 1; // If the current text is a double digit
+const int mod = 1000000;
 
 int main() {
     string s;
     cin >> s;
 
-    int n = s.size();
-    s = " " + s;
+    int size = s.length();
+    long long dp[size + 1][2];
 
-    d[0] = 1;
-    for (int i = 1; i <= n; i++) {
-        int x = s[i] - '0';
-        if (1 <= x && x <= 9) {
-            d[i] += d[i - 1];
-            d[i] %= mod;
-        }
-
-        if (i == 1) continue;
-
-        x = (s[i - 1] - '0') * 10 + (s[i] - '0');
-        if (10 <= x && x <= 26) {
-            d[i] += d[i - 2];
-            d[i] %= mod;
+    //dp array initialize
+    for (int i = 0; i < size + 1; i++) {
+        for (int j = 0; j < 2; j++) {
+            dp[i][j] = 0;
         }
     }
 
-    cout << d[n] << '\n';
+    dp[0][c1] = 1;
+    dp[0][c2] = 0;
+    if (s[0] == '0') {
+        cout << 0 << '\n';
+    } else {
+        dp[1][c1] = 1;
+        dp[1][c2] = 0;
+
+        for (int i = 2; i <= size; i++) {
+            string tmp;
+            if (s[i-1] != '0') {
+                dp[i][c1] = (dp[i - 1][c1] + dp[i - 1][c2]) % mod;
+            }
+            tmp = s.substr(i - 2, 2);
+            int num = stoi(tmp);
+            if (0 <= num && num <= 26) {
+                dp[i][c2] = (dp[i - 2][c1] + dp[i - 2][c2]) % mod;
+            }
+        }
+
+        cout << (dp[size][c1] + dp[size][c2]) % mod << '\n';
+    }
+
 
     return 0;
 }
