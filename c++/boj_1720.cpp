@@ -11,8 +11,8 @@ int main() {
 
     cin >> n;
 
-    long long a[n + 1];
-    long long d[n + 1];
+    long long a[n + 1]; //대칭 포함
+    long long d[n + 1]; //대칭 없음
     a[1] = 1;
     a[2] = 3;
 
