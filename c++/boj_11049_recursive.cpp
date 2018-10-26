@@ -10,9 +10,9 @@ int d[501][501];
 pair<int, int> a[501];
 
 int go(int i, int j) {
-    if (i == j) return 0;
+    if (i == j) return 0; //base value
 
-    if (d[i][j] != -1) return d[i][j];
+    if (d[i][j] != -1) return d[i][j]; //memoization
 
     for (int k = i; k <= j - 1; k++) {
         int tmp = go(i, k) + go(k + 1, j) + a[i].first * a[k].second * a[j].second;
