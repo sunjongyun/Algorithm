@@ -9,10 +9,10 @@
 
 using namespace std;
 
-string UpperToLower(string word){
-    for (int i=0; i<word.size(); i++){
-        if ('A' <=word[i] && word[i]<='Z'){
-            word[i]=word[i]-'A'+'a';
+string UpperToLower(string word) {
+    for (int i = 0; i < word.size(); i++) {
+        if ('A' <= word[i] && word[i] <= 'Z') {
+            word[i] = word[i] - 'A' + 'a';
         }
     }
     return word;
@@ -23,7 +23,7 @@ int solution(string word, vector<string> pages) {
     map<string, int> base;
 
     //word의 문자열을 전부 소문자로
-    word=UpperToLower(word);
+    word = UpperToLower(word);
 
     //search page base url
     //head 안에서 찾아야 한다.
@@ -39,27 +39,39 @@ int solution(string word, vector<string> pages) {
         }
         int url_start = head.find("https://");
         int url_end;
-        string tmp=head.substr(url_start);
-        url_end=tmp.find("\"");
+        string tmp = head.substr(url_start);
+        url_end = tmp.find("\"");
 
 
-        string url=""; // base_url
-        for (int i=0; i<url_end; i++){
-            url+=tmp[i];
+        string url = ""; // base_url
+        for (int i = 0; i < url_end; i++) {
+            url += tmp[i];
         }
 
         //body에서 문자열을 찾는다.
-        int score=0;
-        int body_start=html.find("<body>");
-        int body_end=html.find("</body>");
-        string body=html.substr(body_start+7,body_end-body_start-7);
+        int score = 0;
+        int body_start = html.find("<body>");
+        int body_end = html.find("</body>");
+        string body = html.substr(body_start + 7, body_end - body_start - 7);
 
         //base에 찾은 문자열의 기본점수를 넣는다.
         body = UpperToLower(body);
+        tmp="";
+        for (int i = 0; i < body.size(); i++) {
+            int nowC = body[i];
 
+            if ('a'<=nowC && nowC <='z'){
+                tmp+=nowC;
+            }else {
+                if (tmp==word){
+                    score++;
+                }
+                tmp="";
+            }
+        }
+//        printf("score[%d] : %d\n",page_num,score);
 
-
-
+        base.insert({url,score});
 
 
 
