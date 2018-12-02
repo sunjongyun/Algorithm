@@ -7,8 +7,8 @@
 using namespace std;
 
 int dfs(int a, int b) {
-    int big=max(a,b); //big
-    int small=min(a,b); //small
+    int big = max(a, b); //big
+    int small = min(a, b); //small
 
     if ((big - small) == 1 && small % 2 == 1) {
         return 1;
@@ -24,7 +24,7 @@ int solution(int n, int a, int b) {
     int answer;
 
 
-    answer=dfs(a, b);
+    answer = dfs(a, b);
 
     return answer;
 }
