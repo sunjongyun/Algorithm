@@ -33,7 +33,7 @@ int solution(int n, int a, int b) {
 int main() {
     int ans = solution(100, 1, 100);
 
-    cout << ans << '\n';
+    cout << ans << '\n' ;
 
     return 0;
 }
