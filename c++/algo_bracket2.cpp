@@ -26,6 +26,8 @@ bool solution(string input) {
                 break;
             }
             if (close[k] == now) {
+                // If there is no stacked data on the stack,
+                // a stack overflow occurs when the stack is accessed.
                 if (!s.empty()) {
                     char prev = s.top();
                     s.pop();
