@@ -3,72 +3,53 @@
 //
 
 #include <iostream>
-#include <algorithm>
 #include <queue>
 
 using namespace std;
 
-const long long mod = 4294967296; // pow(2,32)
-
-
-void init(queue<int> &sign, queue<long long> &a) {
-    while (!sign.empty()) {
-        sign.pop();
-    }
-
-    while (!a.empty()) {
-        a.pop();
-    }
-
-}
-
+const long long MOD = 4294967296;
 
 int main() {
-    int n;
-    cin >> n;
+    int TC;
+    cin >> TC;
 
-    queue<long long> a;
-    queue<int> sign;
+    while (TC--) {
+        int k, cnt;
+        cin >> k >> cnt;
+        queue<int> q;
+        int answer = 0;
 
+        long long ori; // original sign
+        int trans; // transform sign
 
-    while (n--) {
-        int search, k;
-        cin >> search >> k;
+        ori = 1983;
+        trans = 1984;
+        q.push(trans);
 
-        init(sign, a);
-        int ans = 0;
+        int sum = trans;
+        cnt--;
 
-        int sum = 1984;
-        int cnt = 1;
-        long long prev = 1983;
-        long long trans = 1984;
-        a.push(prev);
-        sign.push(trans);
-
-        while (cnt <= k) {
-            if (sum == search) {
-                ans++;
-                sum -= sign.front();
-                sign.pop();
-                a.pop();
-
-            } else if (sum < search) {
-                cnt++;
-                prev = (prev * 214013 + 2531011) % mod;
-                trans = prev % 10000 + 1;
-                a.push(prev);
-                sign.push(trans);
+        while (cnt) {
+            if (k == sum) {
+                answer++;
+                cnt--;
+                ori = (ori * 214013 + 2531011) % MOD;
+                trans = ori % 10000 + 1;
                 sum += trans;
-            } else if (sum > search) {
-                sum -= sign.front();
-                a.pop();
-                sign.pop();
+                q.push(trans);
+            } else if (k > sum) {
+                cnt--;
+                ori = (ori * 214013 + 2531011) % MOD;
+                trans = ori % 10000 + 1;
+                sum += trans;
+                q.push(trans);
+            } else if (k < sum) {
+                sum -= q.front();
+                q.pop();
             }
         }
 
-        cout << ans << '\n';
-
-
+        cout << answer << '\n';
     }
 
 
