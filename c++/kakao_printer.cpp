@@ -29,13 +29,13 @@ int solution(vector<int> priorities, int location) {
     bool isFind = false;
 
     for (int i = 0; i < n; i++) {
-        int nowP = p.top();
+        int highest = p.top();
         p.pop();
 
         while (true) {
             int nowQ = q.front();
             bool nowC = c.front();
-            if (nowP == q.front()) {
+            if (highest == nowQ) {
                 if (nowC) {
                     isFind = true;
                 }
