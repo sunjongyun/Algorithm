@@ -5,67 +5,59 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 using namespace std;
 
+void rotate(queue<int> &q) {
+    int tmp = q.front();
+    q.push(tmp);
+    q.pop();
+}
+
 int solution(vector<int> priorities, int location) {
     int answer = 0;
+    int n = priorities.size();
+    queue<int> c; // location Only true if location is true, false otherwise
+    queue<int> q;
+    for (int x: priorities) {
+        q.push(x);
+    }
 
-    priority_queue<int> p; //priority_queue
-    queue<int> q; //queue
-    queue<bool> c; //checked
-    for (int i = 0; i < priorities.size(); i++) {
-        p.push(priorities[i]);
-        q.push(priorities[i]);
-        if (i == location) {
-            c.push(true);
+    for (int i = 0; i < n; i++) {
+        if (location == i) {
+            c.push(1); // true
         } else {
-            c.push(false);
+            c.push(0); // false
         }
     }
 
+    // Ascending
+    sort(priorities.begin(), priorities.end(), greater<int>{});
 
-    int n = p.size();
-    bool isFind = false;
+    for (int now: priorities) {
+        answer++;
 
-    for (int i = 0; i < n; i++) {
-        int highest = p.top();
-        p.pop();
-
-        while (true) {
-            int nowQ = q.front();
-            bool nowC = c.front();
-            if (highest == nowQ) {
-                if (nowC) {
-                    isFind = true;
-                }
-                q.pop();
-                c.pop();
-                answer++;
-                break;
-            } else {
-                q.pop();
-                c.pop();
-                q.push(nowQ);
-                c.push(nowC);
-            }
+        while (now != q.front()) {
+            rotate(q);
+            rotate(c);
         }
 
-        if (isFind) {
+        if (c.front()) {
             break;
         }
 
+        q.pop();
+        c.pop();
     }
+
 
     return answer;
 }
 
 int main() {
-//    vector<int> priorities = {2, 1, 3, 2};
-//    int location = 2;
     vector<int> priorities = {1, 1, 9, 1, 1, 1};
     int location = 0;
-
     int ans = solution(priorities, location);
 
     cout << ans << '\n';
