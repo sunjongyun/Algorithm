@@ -50,7 +50,7 @@ int solution(int n, int m, vector<set<int>> sets) {
                 ret = i;
                 break;
             }
-        } while (next_permutation(input.begin(), input.end()));
+        } while (next_permutation(input.begin(), input.end())); // 사전순으로 정렬한다.
 
         if (isFind) {
             break;
