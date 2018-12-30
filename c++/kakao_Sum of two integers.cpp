@@ -12,16 +12,15 @@ long long solution(int a, int b) {
 
     if (a > b) swap(a, b);
 
-    for (int i = a; i <= b; i++) {
-        answer += i;
-    }
+    long long num = b - a + 1;
+    answer += (long long) (b + a) * num / 2;
 
     return answer;
 }
 
 int main() {
 
-    long long ans = solution(5, 5);
+    long long ans = solution(5, 3);
     cout << ans << '\n';
 
     return 0;
