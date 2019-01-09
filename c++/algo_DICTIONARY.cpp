@@ -56,6 +56,8 @@ vector<int> topologicalSort() {
     }
 
     reverse(order.begin(), order.end());
+    // 사이클이 만들어지는지 확인
+    // here -> there로 위상인데, there-> here로 위상일 경우 잘못된 결과임.
     for (int i = 0; i < MAX; i++) {
         for (int j = i + 1; j < MAX; j++) {
             if (adj[order[j]][order[i]] == 1) {
